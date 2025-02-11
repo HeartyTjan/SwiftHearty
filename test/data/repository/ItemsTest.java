@@ -112,4 +112,18 @@ class ItemsTest {
         assertEquals(0,items.count());
 
     }
+
+    @Test
+    public void addThreeItems_saveAllItems_deleteTwoItemsTest(){
+        Items items = new Items();
+        assertEquals(0,items.count());
+        Item firstItem = new Item("phone", 50);
+        Item secondItem = new Item("book", 20);
+        Item thirdItem = new Item("road", 30);
+        items.saveAll(firstItem,secondItem,thirdItem);
+        assertEquals(3,items.count());
+        items.delete(firstItem);
+        items.delete(secondItem);
+        assertEquals(1,items.count());
+    }
 }

@@ -74,4 +74,8 @@ public class Items {
             deleteById(id);
         }
     }
+
+    public void delete(Item item) {
+        deleteById(item.getId());
+    }
 }
