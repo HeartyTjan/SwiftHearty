@@ -30,7 +30,7 @@ public class TrackingInfos {
         return trackingInfo.getId() == 0;
     }
 
-    public TrackingInfo findtrackingInfoById(int id) {
+    public TrackingInfo findTrackingInfoById(int id) {
         for (TrackingInfo trackingInfo : trackingInfos) {
             if (trackingInfo.getId() == id) {
                 return trackingInfo;

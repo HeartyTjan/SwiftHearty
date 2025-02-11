@@ -29,7 +29,7 @@ class TrackingInfosTest {
         TrackingInfo saveTrackingInfo = trackingInfos.save((new TrackingInfo()));
         assertEquals(1,trackingInfos.count());
         TrackingInfo saveTrackingInfo2 = trackingInfos.save((new TrackingInfo()));
-        TrackingInfo foundTrackingInfo = trackingInfos.findtrackingInfoById(saveTrackingInfo.getId());
+        TrackingInfo foundTrackingInfo = trackingInfos.findTrackingInfoById(saveTrackingInfo.getId());
         assertEquals(saveTrackingInfo,foundTrackingInfo);
     }
 
@@ -39,7 +39,7 @@ class TrackingInfosTest {
         assertEquals(0,trackingInfos.count());
         TrackingInfo saveTrackingInfo = trackingInfos.save((new TrackingInfo()));
         assertEquals(1,trackingInfos.count());
-        TrackingInfo foundTrackingInfo= trackingInfos.findtrackingInfoById(saveTrackingInfo.getId());
+        TrackingInfo foundTrackingInfo= trackingInfos.findTrackingInfoById(saveTrackingInfo.getId());
         assertEquals(saveTrackingInfo,foundTrackingInfo);
         TrackingInfo updatedTrackingInfo = trackingInfos.save(saveTrackingInfo);
 

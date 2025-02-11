@@ -28,6 +28,14 @@ public class Item {
 
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public void setWeightInGram(int newWeightInGram) {
         weightInGram = newWeightInGram;
     }

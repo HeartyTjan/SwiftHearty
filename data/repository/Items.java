@@ -20,13 +20,16 @@ public class Items {
         if(isNew(item)) {
             item.setId(generateId());
             items.add(item);
+            return item;
         }
-        return item;
-
+        Item existingItem = findItemById(item.getId());
+        existingItem.setWeightInGram(item.getWeight());
+        existingItem.setDescription(item.getDescription());
+        return existingItem;
     }
 
     private boolean isNew(Item item) {
-        return item.getId() == 0;
+        return findItemById(item.getId()) == null;
     }
 
     public Item findItemById(int id) {

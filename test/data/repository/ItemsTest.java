@@ -38,10 +38,10 @@ class ItemsTest {
         Items items = new Items();
         assertEquals(0,items.count());
         Item savedItem = items.save(new Item("phone",50));
+        assertEquals(1,items.count());
 
         int savedItemId = savedItem.getId();
         int saveItemWeight = savedItem.getWeight();
-        assertEquals(1,items.count());
 
         Item foundItem = items.findItemById(savedItem.getId());
         foundItem.setWeightInGram(100);
