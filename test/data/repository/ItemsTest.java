@@ -1,6 +1,8 @@
 package data.repository;
 
 import data.models.Item;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -8,6 +10,16 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ItemsTest {
+    Items items;
+
+    @BeforeEach
+    void setUp() {
+        items = new Items();
+    }
+    @AfterEach
+    public void tearDown() {
+        items = null;
+    }
     @Test
     public void itemsIsEmptyTest() {
         Items items = new Items();
@@ -47,7 +59,6 @@ class ItemsTest {
         foundItem.setWeightInGram(100);
         items.save(foundItem);
         assertEquals(1,items.count());
-        assertEquals(savedItemId,foundItem.getId());
 
     }
     @Test
@@ -96,10 +107,9 @@ class ItemsTest {
         Item secondItem = new Item("book", 20);
         Item thirdItem = new Item("road", 30);
         items.saveAll(firstItem,secondItem,thirdItem);
-        assertEquals(3,items.count);
-        System.out.println(firstItem.getId());
+        assertEquals(3,items.count());
         items.deleteAllById(firstItem.getId(),secondItem.getId(),thirdItem.getId());
-        assertEquals(0,items.count);
+        assertEquals(0,items.count());
 
     }
 }

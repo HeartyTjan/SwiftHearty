@@ -3,6 +3,7 @@ package data.repository;
 import data.models.Item;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 
@@ -53,7 +54,8 @@ public class Items {
         items.removeIf(item -> item.getId() == id);
     }
     public int generateId(){
-       return count++;
+        count++;
+       return count;
     }
 
     public ArrayList<Item> saveAll(Item ...item) {
@@ -67,7 +69,7 @@ public class Items {
         return itemsToReturn;
     }
 
-    public void deleteAllById(int...ids) {
+    public void deleteAllById(int ...ids) {
         for(int id : ids){
             deleteById(id);
         }
