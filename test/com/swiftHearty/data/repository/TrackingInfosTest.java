@@ -1,8 +1,7 @@
-package data.repository;
+package com.swiftHearty.data.repository;
 
-import data.models.TrackingInfo;
-import data.models.TrackingInfo;
-import org.junit.jupiter.api.AfterEach;
+import com.swiftHearty.data.models.TrackingInfo;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,17 +9,12 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TrackingInfosTest {
+public class TrackingInfosTest {
     TrackingInfos trackingInfos;
 
     @BeforeEach
     void setUp() {
         trackingInfos = new TrackingInfos();
-    }
-
-    @AfterEach
-    public void tearDown() {
-        trackingInfos = null;
     }
 
     @Test
@@ -56,7 +50,7 @@ class TrackingInfosTest {
         TrackingInfo saveTrackingInfo = trackingInfos.save((new TrackingInfo()));
         assertEquals(1,trackingInfos.count());
         TrackingInfo foundTrackingInfo= trackingInfos.findTrackingInfoById(saveTrackingInfo.getId());
-        foundTrackingInfo.setInfo("It is edited");
+        foundTrackingInfo.setInfo("New info added");
         trackingInfos.save(foundTrackingInfo);
         assertEquals(1,trackingInfos.count());
 
@@ -101,15 +95,16 @@ class TrackingInfosTest {
 
     @Test
     public void addThreeTrackingInfos_saveAllTrackingInfos_thenDeleteAllTrackingInfoByIDTest(){
-        TrackingInfos TrackingInfos = new TrackingInfos();
-        assertEquals(0,TrackingInfos.count());
+        TrackingInfos trackingInfos = new TrackingInfos();
+        assertEquals(0,trackingInfos.count());
         TrackingInfo firstTrackingInfo = new TrackingInfo();
         TrackingInfo secondTrackingInfo = new TrackingInfo();
         TrackingInfo thirdTrackingInfo = new TrackingInfo();
-        TrackingInfos.saveAll(firstTrackingInfo,secondTrackingInfo,thirdTrackingInfo);
-        assertEquals(3,TrackingInfos.count());
-        TrackingInfos.deleteAllById(firstTrackingInfo.getId(),secondTrackingInfo.getId(),thirdTrackingInfo.getId());
-        assertEquals(0,TrackingInfos.count());
+        trackingInfos.saveAll(firstTrackingInfo,secondTrackingInfo,thirdTrackingInfo);
+        assertEquals(3,trackingInfos.count());
+
+        trackingInfos.deleteAllById(firstTrackingInfo.getId(),secondTrackingInfo.getId(),thirdTrackingInfo.getId());
+        assertEquals(0,trackingInfos.count());
 
     }
 

@@ -1,17 +1,14 @@
-package data.repository;
+package com.swiftHearty.data.repository;
 
-import data.models.Item;
-import data.models.TrackingInfo;
+import com.swiftHearty.data.models.TrackingInfo;
 
 
 import java.util.ArrayList;
 
-public class TrackingInfos {
+public class TrackingInfos implements TrackingInfoRepository{
     ArrayList<TrackingInfo> trackingInfos = new ArrayList<>();
 
     int count = 0;
-
-
 
     public int count() {
         return trackingInfos.size();
@@ -21,23 +18,24 @@ public class TrackingInfos {
     }
 
     public TrackingInfo save(TrackingInfo trackingInfo) {
-        if(isNew(trackingInfo)) {
-            trackingInfo.setId(generateId());
-            trackingInfos.add(trackingInfo);
-        }
+        if(isNew(trackingInfo))saveNew(trackingInfo);
+        else replace(trackingInfo);
+        return trackingInfo;
+    }
 
-        TrackingInfo existingTrackingInfo = findTrackingInfoById(trackingInfo.getId());
-        if(existingTrackingInfo != null) {
-            existingTrackingInfo.setItemId(trackingInfo.getItemId());
-            existingTrackingInfo.setInfo(trackingInfo.getInfo());
-            existingTrackingInfo.setDateTime(trackingInfo.getDateTime());
-        }
-        return existingTrackingInfo;
+    private void saveNew(TrackingInfo trackingInfo) {
+        trackingInfo.setId(generateId());
+        trackingInfos.add(trackingInfo);
+    }
+
+    private void replace(TrackingInfo trackingInfo) {
+        deleteById(trackingInfo.getId());
+        trackingInfos.add(trackingInfo);
     }
 
 
     private boolean isNew(TrackingInfo trackingInfo) {
-        return findTrackingInfoById(trackingInfo.getId()) == null;
+        return trackingInfo.getId() == 0;
     }
 
     public TrackingInfo findTrackingInfoById(int id) {

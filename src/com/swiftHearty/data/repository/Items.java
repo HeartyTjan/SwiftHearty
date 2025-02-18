@@ -1,36 +1,37 @@
-package data.repository;
+package com.swiftHearty.data.repository;
 
-import data.models.Item;
+import com.swiftHearty.data.models.Item;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.InputMismatchException;
 
 
-public class Items {
+public class Items implements ItemRepository{
     ArrayList<Item> items = new ArrayList<>();
-    int count = 0;
+
+    private int count = 0;
+    
     public int count() {
         return items.size();
     }
 
-    public void setCount(int count) {
+    public Item save(Item item) {
+        if(isNew(item)) saveNew(item);
+        else replace(item);
+        return item;
     }
 
-    public Item save(Item item) {
-        if(isNew(item)) {
-            item.setId(generateId());
-            items.add(item);
-            return item;
-        }
-        Item existingItem = findItemById(item.getId());
-        existingItem.setWeightInGram(item.getWeight());
-        existingItem.setDescription(item.getDescription());
-        return existingItem;
+    private void saveNew(Item item) {
+        item.setId(generateId());
+        items.add(item);
     }
 
     private boolean isNew(Item item) {
-        return findItemById(item.getId()) == null;
+        return item.getId() == 0L;
+    }
+
+    private void replace(Item item) {
+        deleteById(item.getId());
+        items.add(item);
     }
 
     public Item findItemById(int id) {
@@ -50,6 +51,13 @@ public class Items {
         return false;
     }
 
+    public boolean existByDescription(String description) {
+       for (Item item : items) {
+            if(item.getDescription().equalsIgnoreCase(description)) return true;
+           }
+        return false;
+    }
+
     public void deleteById(int id) {
         items.removeIf(item -> item.getId() == id);
     }
@@ -58,13 +66,12 @@ public class Items {
        return count;
     }
 
-    public ArrayList<Item> saveAll(Item ...item) {
+    public ArrayList<Item> saveAll(Item ...items) {
         ArrayList<Item> itemsToReturn = new ArrayList<>();
-        for (Item newItem : item) {
+        for (Item newItem : items) {
             save(newItem);
             itemsToReturn.add(newItem);
         }
-
 
         return itemsToReturn;
     }
@@ -72,6 +79,13 @@ public class Items {
     public void deleteAllById(int ...ids) {
         for(int id : ids){
             deleteById(id);
+        }
+    }
+
+    public void deleteAll(Item...items) {
+
+        for(Item item : items){
+            delete(item);
         }
     }
 

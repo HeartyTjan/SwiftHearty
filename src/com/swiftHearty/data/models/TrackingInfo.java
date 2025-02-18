@@ -1,9 +1,9 @@
-package data.models;
+package com.swiftHearty.data.models;
 
 import java.time.LocalDateTime;
 
 public class TrackingInfo {
-    private String itemId;
+    private int itemId;
     private int id;
     private String info;
     private LocalDateTime dateTime = LocalDateTime.now();
@@ -16,11 +16,11 @@ public class TrackingInfo {
         this.id = id;
     }
 
-    public String getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
-    public void setItemId(String itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 
